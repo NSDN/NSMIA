@@ -8,6 +8,9 @@ extern uint8_t FLAG, Ready;
 __sbit __at (0xB3) LEDA;
 __sbit __at (0xB4) LEDB;
 
+__sbit __at (0xB0) CKP;
+__sbit __at (0xB1) CKU;
+__sbit __at (0xB2) CKD;
 __sbit __at (0x91) EKY;
 __sbit __at (0x94) K1;
 __sbit __at (0x95) K2;
@@ -55,14 +58,22 @@ void main() {
                 EKY = 1;
             control = !control;
             usbReleaseAll();
+            usbSetKeycode(9, 41);                   // KEY_ESC
+            usbPushKeydata();
+            delay(100);
+            usbReleaseAll();
             usbPushKeydata();
         }
         
         if (control) {
-            usbSetKeycode(2, K1 != 0 ? 0 : 7);
-            usbSetKeycode(3, K2 != 0 ? 0 : 9);
-            usbSetKeycode(4, K3 != 0 ? 0 : 13);
-            usbSetKeycode(5, K4 != 0 ? 0 : 14);
+            usbSetKeycode(2, K1 != 0 ? 0 : 7);      // KEY_D
+            usbSetKeycode(3, K2 != 0 ? 0 : 9);      // KEY_F
+            usbSetKeycode(4, K3 != 0 ? 0 : 13);     // KEY_J
+            usbSetKeycode(5, K4 != 0 ? 0 : 14);     // KEY_K
+            CKP = 1; CKU = 1; CKD = 1;
+            usbSetKeycode(6, CKP != 0 ? 0 : 40);    // KEY_ENTER
+            usbSetKeycode(7, CKD != 0 ? 0 : 82);    // KEY_UP
+            usbSetKeycode(8, CKU != 0 ? 0 : 81);    // KEY_DOWN
             usbPushKeydata();
         }
         delay(1);
