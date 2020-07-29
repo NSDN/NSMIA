@@ -20,7 +20,7 @@ const uint8_c usbDevDesc[] = {
     0x00, 0x01,         // 设备版本号 (1.0)
     0x01,               // 描述厂商信息的字符串描述符的索引值
     0x02,               // 描述产品信息的字串描述符的索引值
-    0x00,               // 描述设备序列号信息的字串描述符的索引值
+    0x03,               // 描述设备序列号信息的字串描述符的索引值
     0x01                // 可能的配置数
 };
 
@@ -30,7 +30,7 @@ const uint8_c usbCfgDesc[] = {
     0x5B, 0x00,  //   wTotalLength 91
     0x03,        //   bNumInterfaces 3
     0x01,        //   bConfigurationValue
-    0x00,        //   iConfiguration (String Index)
+    0x04,        //   iConfiguration (String Index)
     0xA0,        //   bmAttributes Remote Wakeup
     0x32,        //   bMaxPower 100mA
 
@@ -44,7 +44,7 @@ const uint8_c usbCfgDesc[] = {
     0x03,        //   bInterfaceClass
     0x01,        //   bInterfaceSubClass
     0x01,        //   bInterfaceProtocol
-    0x00,        //   iInterface (String Index)
+    0x05,        //   iInterface (String Index)
 
     0x09,        //   bLength
     0x21,        //   bDescriptorType (HID)
@@ -71,7 +71,7 @@ const uint8_c usbCfgDesc[] = {
     0x03,        //   bInterfaceClass
     0x01,        //   bInterfaceSubClass
     0x02,        //   bInterfaceProtocol
-    0x00,        //   iInterface (String Index)
+    0x06,        //   iInterface (String Index)
 
     0x09,        //   bLength
     0x21,        //   bDescriptorType (HID)
@@ -98,7 +98,7 @@ const uint8_c usbCfgDesc[] = {
     0x03,        //   bInterfaceClass
     0x00,        //   bInterfaceSubClass
     0x00,        //   bInterfaceProtocol
-    0x00,        //   iInterface (String Index)
+    0x07,        //   iInterface (String Index)
 
     0x09,        //   bLength
     0x21,        //   bDescriptorType (HID)
@@ -319,14 +319,18 @@ void __usbDeviceInterrupt() __interrupt (INT_NO_USB) __using (1) {
                                                     len = sizeof(usbSerialDesc);
                                                     break;
                                                 case 4:
+                                                    pDescr = (uint8_t*) (&usbCfgStrDesc[0]);
+                                                    len = sizeof(usbCfgStrDesc);
+                                                    break;
+                                                case 5:
                                                     pDescr = (uint8_t*) (&usbKeyStrDesc[0]);
                                                     len = sizeof(usbKeyStrDesc);
                                                     break;
-                                                case 5:
+                                                case 6:
                                                     pDescr = (uint8_t*) (&usbMseStrDesc[0]);
                                                     len = sizeof(usbMseStrDesc);
                                                     break;
-                                                case 6:
+                                                case 7:
                                                     pDescr = (uint8_t*) (&usbCusStrDesc[0]);
                                                     len = sizeof(usbCusStrDesc);
                                                     break;
