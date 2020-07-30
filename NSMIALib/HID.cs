@@ -165,8 +165,8 @@ namespace NSMIALib
 
                             Debug.WriteLine("VID: " + attributes.VendorID.ToString("x4"));
                             Debug.WriteLine("PID: " + attributes.ProductID.ToString("x4"));
-                            Debug.WriteLine("MID: " + "mi_" + mID.ToString("x2"));
-                            if (attributes.VendorID == vID && attributes.ProductID == pID && deviceList[i].Contains("mi_" + mID.ToString("x2")))
+                            
+                            if (attributes.VendorID == vID && attributes.ProductID == pID)
                             {
                                 IntPtr preparseData;
                                 HIDP_CAPS caps;
@@ -295,10 +295,10 @@ namespace NSMIALib
                         for (int i = 1; i <= maxBufferLength; i++)
                             buffer[i] = r.reportBuff[i - 1];
                         hidDevice.Write(buffer, 0, OutputReportLength);
+                        return HID_RETURN.SUCCESS;
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        throw e;
                         EventArgs ex = new EventArgs();
                         OnDeviceRemoved(ex);//发出设备移除消息                  
                     }

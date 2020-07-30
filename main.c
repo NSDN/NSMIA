@@ -17,7 +17,7 @@ __sbit __at (0x95) K2;
 __sbit __at (0x96) K3;
 __sbit __at (0x97) K4;
 
-volatile __bit control = 0;
+volatile __bit control = 1;
 
 void main() {
     P1_MOD_OC &= ~(0xF0);
@@ -56,7 +56,7 @@ void main() {
         if (EKY == 0) {
             while (EKY == 0)
                 EKY = 1;
-            control = !control;
+            //control = !control;
             usbReleaseAll();
             usbSetKeycode(9, 41);                   // KEY_ESC
             usbPushKeydata();
@@ -66,17 +66,27 @@ void main() {
         }
         
         if (control) {
+            usbSetKeycode(0, 0); usbSetKeycode(1, 0);
             usbSetKeycode(2, K1 != 0 ? 0 : 7);      // KEY_D
             usbSetKeycode(3, K2 != 0 ? 0 : 9);      // KEY_F
             usbSetKeycode(4, K3 != 0 ? 0 : 13);     // KEY_J
             usbSetKeycode(5, K4 != 0 ? 0 : 14);     // KEY_K
+            delay(1);
             CKP = 1; CKU = 1; CKD = 1;
             usbSetKeycode(6, CKP != 0 ? 0 : 40);    // KEY_ENTER
             usbSetKeycode(7, CKD != 0 ? 0 : 82);    // KEY_UP
             usbSetKeycode(8, CKU != 0 ? 0 : 81);    // KEY_DOWN
+            usbSetKeycode(9, 0);
             usbPushKeydata();
         }
-        delay(1);
+
+        if (hasHIDData()) {
+            for (uint8_t i = 0; i < 32; i++)
+                setHIDData(i, getHIDData(i));
+            pushHIDData();
+            requestHIDData();
+            LEDA = !LEDA;
+        }
 
         LEDB = control;
     }
