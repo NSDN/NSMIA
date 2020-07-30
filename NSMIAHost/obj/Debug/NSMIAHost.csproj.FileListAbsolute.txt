@@ -1,0 +1,10 @@
+E:\Works\NSMIA\NSMIAHost\bin\Debug\NSMIAHost.exe.config
+E:\Works\NSMIA\NSMIAHost\bin\Debug\NSMIAHost.exe
+E:\Works\NSMIA\NSMIAHost\bin\Debug\NSMIAHost.pdb
+E:\Works\NSMIA\NSMIAHost\obj\Debug\NSMIAHost.csprojAssemblyReference.cache
+E:\Works\NSMIA\NSMIAHost\obj\Debug\NSMIAHost.MainForm.resources
+E:\Works\NSMIA\NSMIAHost\obj\Debug\NSMIAHost.Properties.Resources.resources
+E:\Works\NSMIA\NSMIAHost\obj\Debug\NSMIAHost.csproj.GenerateResource.cache
+E:\Works\NSMIA\NSMIAHost\obj\Debug\NSMIAHost.csproj.CoreCompileInputs.cache
+E:\Works\NSMIA\NSMIAHost\obj\Debug\NSMIAHost.exe
+E:\Works\NSMIA\NSMIAHost\obj\Debug\NSMIAHost.pdb

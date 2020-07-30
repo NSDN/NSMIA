@@ -1,0 +1,5 @@
+E:\Works\NSMIA\NSMIALib\bin\Debug\NSMIALib.dll
+E:\Works\NSMIA\NSMIALib\bin\Debug\NSMIALib.pdb
+E:\Works\NSMIA\NSMIALib\obj\Debug\NSMIALib.csproj.CoreCompileInputs.cache
+E:\Works\NSMIA\NSMIALib\obj\Debug\NSMIALib.dll
+E:\Works\NSMIA\NSMIALib\obj\Debug\NSMIALib.pdb
