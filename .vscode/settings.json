@@ -2,7 +2,10 @@
     "files.associations": {
         "CompositeKM.C": "cpp",
         "Debug.C": "cpp",
-        "Timer.C": "cpp"
+        "Timer.C": "cpp",
+        "EXAM1.C": "cpp",
+        "CH554UFI.C": "cpp",
+        "CH554UFR.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
