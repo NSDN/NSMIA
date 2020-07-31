@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-//#define USE_MULTIMEDIA_CFG
-
 void usbDevInit();
 
 void usbSetKeycode(uint8_t i, uint8_t key);

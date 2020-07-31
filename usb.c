@@ -52,11 +52,7 @@ const uint8_c usbCfgDesc[] = {
     0x00,        //   bCountryCode
     0x01,        //   bNumDescriptors
     0x22,        //   bDescriptorType[0] (HID)
-#ifndef USE_MULTIMEDIA_CFG
-    0x2E, 0x00,  //   wDescriptorLength[0] 46
-#else
-    0x56, 0x00,  //   wDescriptorLength[0] 86
-#endif
+    0x55, 0x00,  //   wDescriptorLength[0] 85
 
     0x07,        //   bLength
     0x05,        //   bDescriptorType (Endpoint)
@@ -132,6 +128,7 @@ const uint8_c KeyRepDesc[] = {
     0x05, 0x01,        // Usage Page (Generic Desktop Ctrls)
     0x09, 0x06,        // Usage (Keyboard)
     0xA1, 0x01,        // Collection (Application)
+    0x85, 0x01,        //   Report ID (1)
     0x05, 0x07,        //   Usage Page (Kbrd/Keypad)
     0x15, 0x00,        //   Logical Minimum (0)
     0x25, 0x01,        //   Logical Maximum (1)
@@ -140,35 +137,6 @@ const uint8_c KeyRepDesc[] = {
     0x75, 0x01,        //   Report Size (1)
     0x95, 0x08,        //   Report Count (8)
     0x81, 0x02,        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
-#ifndef USE_MULTIMEDIA_CFG
-    0x75, 0x08,        //   Report Size (8)
-    0x95, 0x01,        //   Report Count (1)
-    0x81, 0x01,        //   Input (Const,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
-#else
-    0x05, 0x0C,        //   Usage Page (Consumer)
-    0x15, 0x00,        //   Logical Minimum (0)
-    0x25, 0x01,        //   Logical Maximum (1)
-    0x19, 0xB0,        //   Usage Minimum (Play)
-    0x29, 0xB1,        //   Usage Maximum (Pause)
-    0x75, 0x01,        //   Report Size (1)
-    0x95, 0x02,        //   Report Count (2)
-    0x81, 0x02,        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
-    0x19, 0xB5,        //   Usage Minimum (Scan Next Track)
-    0x29, 0xB7,        //   Usage Maximum (Stop)
-    0x75, 0x01,        //   Report Size (1)
-    0x95, 0x03,        //   Report Count (3)
-    0x81, 0x02,        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
-    0x19, 0xE2,        //   Usage Minimum (Mute)
-    0x29, 0xE2,        //   Usage Maximum (Mute)
-    0x75, 0x01,        //   Report Size (1)
-    0x95, 0x01,        //   Report Count (1)
-    0x81, 0x02,        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
-    0x19, 0xE9,        //   Usage Minimum (Volume Increment)
-    0x29, 0xEA,        //   Usage Maximum (Volume Decrement)
-    0x75, 0x01,        //   Report Size (1)
-    0x95, 0x02,        //   Report Count (2)
-    0x81, 0x02,        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
-#endif
     0x05, 0x07,        //   Usage Page (Kbrd/Keypad)
     0x15, 0x00,        //   Logical Minimum (0)
     0x26, 0xFF, 0x00,  //   Logical Maximum (255)
@@ -177,6 +145,28 @@ const uint8_c KeyRepDesc[] = {
     0x75, 0x08,        //   Report Size (8)
     0x95, 0x08,        //   Report Count (8)
     0x81, 0x00,        //   Input (Data,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
+    0xC0,              // End Collection
+    0x05, 0x0C,        // Usage Page (Consumer)
+    0x09, 0x01,        // Usage (Consumer Control)
+    0xA1, 0x01,        // Collection (Application)
+    0x85, 0x02,        //   Report ID (2)
+    0x05, 0x0C,        //   Usage Page (Consumer)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x25, 0x01,        //   Logical Maximum (1)
+    0x75, 0x01,        //   Report Size (1)
+    0x95, 0x08,        //   Report Count (8)
+    0x09, 0xB5,        //   Usage (Scan Next Track)
+    0x09, 0xB6,        //   Usage (Scan Previous Track)
+    0x09, 0xB7,        //   Usage (Stop)
+    0x09, 0xB8,        //   Usage (Eject)
+    0x09, 0xCD,        //   Usage (Play/Pause)
+    0x09, 0xE2,        //   Usage (Mute)
+    0x09, 0xE9,        //   Usage (Volume Increment)
+    0x09, 0xEA,        //   Usage (Volume Decrement)
+    0x81, 0x02,        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position)
+    0x75, 0x08,        //   Report Size (8)
+    0x95, 0x08,        //   Report Count (8)
+    0x81, 0x01,        //   Input (Const,Array,Abs,No Wrap,Linear,Preferred State,No Null Position)
     0xC0,              // End Collection
 };
 const uint8_c MouseRepDesc[] = {
