@@ -20,6 +20,18 @@ __sbit __at (0x97) K4;
 volatile __bit control = 0;
 volatile uint8_t prevKey = 0;
 
+void pressEscapeKey() {
+    usbReleaseAll();
+    usbSetKeycode(0, 1);                            // Report ID 1
+    usbSetKeycode(9, 41);                           // KEY_ESC
+    usbPushKeydata();
+    delay(100);
+    usbReleaseAll();
+    usbSetKeycode(0, 1);                            // Report ID 1
+    usbSetKeycode(9, 0);                            // KEY_ESC
+    usbPushKeydata();
+}
+
 void main() {
     P1_MOD_OC &= ~(0xF0);
     P1_DIR_PU &= ~(0xF0);
@@ -35,28 +47,28 @@ void main() {
 
     FLAG = 1;
 
-    LEDA = 0; LEDB = 1;
-    delay(500);
     LEDA = 1; LEDB = 0;
+    delay(500);
+    LEDA = 0; LEDB = 1;
     usbReleaseAll();
     usbPushKeydata();
     requestHIDData();
 
     while (1) {
         EKY = 1;
+        delay_us(10);
         if (EKY == 0) {
-            while (EKY == 0)
-                EKY = 1;
-            control = !control;
-            // usbReleaseAll();
-            // usbSetKeycode(0, 1);                    // Report ID 1
-            // usbSetKeycode(9, 41);                   // KEY_ESC
-            // usbPushKeydata();
-            // delay(100);
-            // usbReleaseAll();
-            // usbSetKeycode(0, 1);                    // Report ID 1
-            // usbSetKeycode(9, 0);                    // KEY_ESC
-            // usbPushKeydata();
+            delay(10);
+            EKY = 1;
+            delay_us(10);
+            if (EKY == 0) {
+                while (EKY == 0) {
+                    EKY = 1;
+                    delay_us(10);
+                }
+                control = !control;
+                //pressEscapeKey();
+            }
         }
         
         if (!control) {
@@ -90,17 +102,17 @@ void main() {
             }
         } else {
             usbReleaseAll();
+            usbSetKeycode(0, 2);                    // Report ID 2
+            usbSetKeycode(2, 0);
             uint8_t val = 0;
-            val |= (K1 != 0 ? 0 : 0x10);            // KEY_PLAY
-            val |= (K2 != 0 ? 0 : 0x04);            // KEY_STOP
-            val |= (K3 != 0 ? 0 : 0x02);            // KEY_PREV
-            val |= (K4 != 0 ? 0 : 0x01);            // KEY_NEXT
+                 if (K1 == 0) val = 0xCD;           // KEY_PLAY
+            else if (K2 == 0) val = 0xCC;           // KEY_STOP
+            else if (K3 == 0) val = 0xB6;           // KEY_PREV
+            else if (K4 == 0) val = 0xB5;           // KEY_NEXT
             if (val > 0) {
-                usbSetKeycode(0, 2);                    // Report ID 2
                 usbSetKeycode(1, val);
                 usbPushKeydata();
                 delay(100);
-                usbSetKeycode(0, 2);                    // Report ID 2
                 usbSetKeycode(1, 0);
                 usbPushKeydata();
                 delay(100);
@@ -112,10 +124,10 @@ void main() {
                 setHIDData(i, getHIDData(i));
             pushHIDData();
             requestHIDData();
-            LEDA = !LEDA;
+            LEDB = !LEDB;
         }
 
-        LEDB = control;
+        LEDA = control;
     }
     
 }
